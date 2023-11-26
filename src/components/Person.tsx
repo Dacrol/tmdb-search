@@ -53,7 +53,7 @@ const Person: React.FC = () => {
       }
     };
     fetchPerson();
-  }, []);
+  }, [id, setBackgroundImage]);
 
   if (!id) {
     return <div>No person ID provided</div>;

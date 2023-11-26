@@ -45,7 +45,7 @@ const MovieOrShow: React.FC = () => {
     };
 
     fetchMovie();
-  }, [id]);
+  }, [id, media_type, setBackgroundImage]);
 
   if (!movieData) {
     return <div>Loading...</div>;

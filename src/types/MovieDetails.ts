@@ -75,7 +75,6 @@ type ProductionCountry = {
 export type MovieDetails = {
   adult: boolean;
   backdrop_path: string | null;
-  belongs_to_collection: any;
   budget: number;
   genres: Genre[];
   credits: {

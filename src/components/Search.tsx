@@ -52,7 +52,7 @@ const SearchResultCard: React.FC<{
   const { setBackgroundImage } = useContext(BackdropContext);
   useEffect(() => {
     setBackgroundImage('');
-  }, []);
+  }, [setBackgroundImage]);
   const backgroundImage = backdropUrl
     ? `url(https://image.tmdb.org/t/p/w500${backdropUrl})`
     : 'none';

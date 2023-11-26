@@ -5,7 +5,6 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:react-hooks/recommended',
-    'mantine'
   ],
   ignorePatterns: ['dist', '.eslintrc.cjs'],
   parser: '@typescript-eslint/parser',
@@ -16,5 +15,6 @@ module.exports = {
       { allowConstantExport: true },
     ],
     'react-hooks/exhaustive-deps': 'warn',
+    'react-refresh/only-export-components': 'off',
   },
 };
