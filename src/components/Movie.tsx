@@ -13,6 +13,9 @@ const Movie: React.FC = () => {
   const [movie, setMovie] = useState<any>(null);
 
   useEffect(() => {
+    if (!id) {
+      return;
+    }
     const fetchMovie = async () => {
       const movieData = await getMovieById(id);
       setMovie(movieData);
