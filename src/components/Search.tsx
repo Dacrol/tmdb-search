@@ -45,7 +45,10 @@ const SearchResultCard: React.FC<{
     ? `url(https://image.tmdb.org/t/p/w500${backdropUrl})`
     : 'none';
   return (
-    <StyledSearchResultCard backgroundImage={backgroundImage}>
+    <StyledSearchResultCard
+      className="result-card"
+      backgroundImage={backgroundImage}
+    >
       {children}
     </StyledSearchResultCard>
   );
@@ -104,6 +107,7 @@ function Search() {
     <>
       <div>
         <Input
+          id="search"
           type="text"
           placeholder="Search"
           value={searchTerm}
