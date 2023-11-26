@@ -8,6 +8,7 @@ import '@mantine/core/styles.css';
 import styled from 'styled-components';
 import { BackdropContext, BackdropProvider } from './contexts/BackdropContext';
 import { useContext } from 'react';
+import Person from './components/Person';
 
 const MainHeader = styled.h1`
   text-align: left;
@@ -70,6 +71,7 @@ function App() {
                 <Route path="/" element={<Search />} />
                 <Route path="/movie/:id" element={<MovieOrShow />} />
                 <Route path="/show/:id" element={<MovieOrShow />} />
+                <Route path="/person/:id" element={<Person />} />
               </Routes>
             </BrowserRouter>
           </main>

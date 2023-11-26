@@ -140,56 +140,66 @@ function Search() {
         {loading ? (
           <div>Loading...</div>
         ) : (
-          <div>
-            <Grid>
-              {searchResults.map(result => {
-                if (result.media_type === 'person') {
-                  return (
-                    <Grid.Col span={colSpanConfig} key={result.id}>
-                      <SearchResultCard
-                        id={result.id}
-                        media_type={result.media_type}
-                        backdropUrl={result.backdrop_path}
-                      >
-                        <span>{result.name}</span>
-                      </SearchResultCard>
-                    </Grid.Col>
-                  );
-                } else if (result.media_type === 'movie') {
-                  return (
-                    <Grid.Col span={colSpanConfig} key={result.id}>
-                      <SearchResultCard
-                        id={result.id}
-                        media_type={result.media_type}
-                        backdropUrl={result.backdrop_path}
-                      >
-                        <span>{result.title}</span>
-                      </SearchResultCard>
-                    </Grid.Col>
-                  );
-                } else {
-                  return (
-                    <Tooltip
-                      label={'Details for TV Series are not yet implemented'}
-                      position="top"
-                      withArrow
-                    >
-                      <Grid.Col span={colSpanConfig} key={result.id}>
-                        <SearchResultCard
-                          className="no-click"
-                          id={result.id}
-                          media_type={result.media_type}
-                          backdropUrl={result.backdrop_path}
+          <>
+            {searchResults.length === 0 && searchTerm === '' ? (
+              <div>
+                <p>Search for a movie or person</p>
+              </div>
+            ) : (
+              <div>
+                <Grid>
+                  {searchResults.map(result => {
+                    if (result.media_type === 'person') {
+                      return (
+                        <Grid.Col span={colSpanConfig} key={result.id}>
+                          <SearchResultCard
+                            id={result.id}
+                            media_type={result.media_type}
+                            backdropUrl={result.backdrop_path}
+                          >
+                            <span>{result.name}</span>
+                          </SearchResultCard>
+                        </Grid.Col>
+                      );
+                    } else if (result.media_type === 'movie') {
+                      return (
+                        <Grid.Col span={colSpanConfig} key={result.id}>
+                          <SearchResultCard
+                            id={result.id}
+                            media_type={result.media_type}
+                            backdropUrl={result.backdrop_path}
+                          >
+                            <span>{result.title}</span>
+                          </SearchResultCard>
+                        </Grid.Col>
+                      );
+                    } else {
+                      return (
+                        <Tooltip
+                          label={
+                            'Details for TV Series are not yet implemented'
+                          }
+                          position="top"
+                          withArrow
                         >
-                          <span>{result.name}</span>
-                        </SearchResultCard>
-                      </Grid.Col>
-                    </Tooltip>
-                  );
-                }
-              })}
-            </Grid>
-          </div>
+                          <Grid.Col span={colSpanConfig} key={result.id}>
+                            <SearchResultCard
+                              className="no-click"
+                              id={result.id}
+                              media_type={result.media_type}
+                              backdropUrl={result.backdrop_path}
+                            >
+                              <span>{result.name}</span>
+                            </SearchResultCard>
+                          </Grid.Col>
+                        </Tooltip>
+                      );
+                    }
+                  })}
+                </Grid>
+              </div>
+            )}
+          </>
         )}
       </div>
     </>

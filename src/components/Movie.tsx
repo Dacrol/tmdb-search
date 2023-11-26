@@ -3,6 +3,7 @@ import { MovieDetails } from '../types/MovieDetails';
 import { Card, Grid } from '@mantine/core';
 import styled from 'styled-components';
 import { StyledSearchResultCard } from './Search';
+import { useNavigate } from 'react-router-dom';
 
 const ReviewContainer = styled.div`
   display: flex;
@@ -19,9 +20,6 @@ const ReviewContainer = styled.div`
     &.review-score {
       font-weight: 400;
     }
-  }
-  .review-content {
-    white-space: pre-wrap;
   }
 `;
 
@@ -62,15 +60,19 @@ const MovieContainer = styled.div`
   }
 `;
 
-const SubScrollContainer = styled.div`
+export const SubScrollContainer = styled.div`
   max-height: 610px;
   width: 85%;
   overflow-y: scroll;
+  .pre-wrap {
+    white-space: pre-wrap;
+  }
 `;
 
 const Movie: React.FC<{
   movieDetails: MovieDetails;
 }> = ({ movieDetails }) => {
+  const navigate = useNavigate();
   return (
     <MovieContainer>
       <Grid>
@@ -102,11 +104,13 @@ const Movie: React.FC<{
             md: 6,
           }}
         >
-          <img
-            className="poster"
-            src={`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`}
-            alt={movieDetails.title}
-          />
+          {movieDetails.poster_path ? (
+            <img
+              className="poster"
+              src={`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`}
+              alt={movieDetails.title}
+            />
+          ) : null}
         </Grid.Col>
       </Grid>
       <h2>Cast</h2>
@@ -128,6 +132,9 @@ const Movie: React.FC<{
                     ? `url(https://image.tmdb.org/t/p/w500${castMember.profile_path})`
                     : 'none'
                 }
+                onClick={() => {
+                  navigate(`/person/${castMember.id}`);
+                }}
               >
                 <p>{castMember.name}</p>
               </StyledSearchResultCard>
@@ -152,7 +159,7 @@ const Movie: React.FC<{
                   Rating: {review.author_details.rating}
                 </span>
               </div>
-              <p className="review-content">{review.content}</p>
+              <p className="review-content pre-wrap">{review.content}</p>
             </ReviewContainer>
           </Card>
         ))}
