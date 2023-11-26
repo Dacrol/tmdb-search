@@ -1,7 +1,9 @@
 import { Grid, Input } from '@mantine/core';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { SearchResult } from '../types/SearchResults';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { BackdropContext } from '../contexts/BackdropContext';
 
 const StyledSearchResultCard = styled.div<{ backgroundImage: string }>`
   background-image: linear-gradient(
@@ -40,7 +42,14 @@ const colSpanConfig = { base: 12, xs: 6, sm: 4, lg: 3 };
 const SearchResultCard: React.FC<{
   backdropUrl: string | null;
   children: React.ReactNode;
-}> = ({ backdropUrl, children }) => {
+  id: number;
+  media_type: string;
+}> = ({ backdropUrl, children, id, media_type }) => {
+  const navigate = useNavigate();
+  const { setBackgroundImage } = useContext(BackdropContext);
+  useEffect(() => {
+    setBackgroundImage('');
+  }, []);
   const backgroundImage = backdropUrl
     ? `url(https://image.tmdb.org/t/p/w500${backdropUrl})`
     : 'none';
@@ -48,6 +57,13 @@ const SearchResultCard: React.FC<{
     <StyledSearchResultCard
       className="result-card"
       backgroundImage={backgroundImage}
+      onClick={() => {
+        if (media_type === 'person') {
+          navigate(`/person/${id}`);
+        } else {
+          navigate(`/movie/${id}`);
+        }
+      }}
     >
       {children}
     </StyledSearchResultCard>
@@ -126,9 +142,10 @@ function Search() {
               {searchResults.map(result => {
                 if (result.media_type === 'person') {
                   return (
-                    <Grid.Col span={colSpanConfig}>
+                    <Grid.Col span={colSpanConfig} key={result.id}>
                       <SearchResultCard
-                        key={result.id}
+                        id={result.id}
+                        media_type={result.media_type}
                         backdropUrl={result.backdrop_path}
                       >
                         <span>{result.name}</span>
@@ -137,9 +154,10 @@ function Search() {
                   );
                 } else if (result.media_type === 'movie') {
                   return (
-                    <Grid.Col span={colSpanConfig}>
+                    <Grid.Col span={colSpanConfig} key={result.id}>
                       <SearchResultCard
-                        key={result.id}
+                        id={result.id}
+                        media_type={result.media_type}
                         backdropUrl={result.backdrop_path}
                       >
                         <span>{result.title}</span>
@@ -148,9 +166,10 @@ function Search() {
                   );
                 } else {
                   return (
-                    <Grid.Col span={colSpanConfig}>
+                    <Grid.Col span={colSpanConfig} key={result.id}>
                       <SearchResultCard
-                        key={result.id}
+                        id={result.id}
+                        media_type={result.media_type}
                         backdropUrl={result.backdrop_path}
                       >
                         <span>{result.name}</span>
