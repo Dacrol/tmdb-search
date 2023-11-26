@@ -27,10 +27,9 @@ jobs:
           npm run build
           cp -a dist server/
           sed -i 's/TMDB_API_KEY=/TMDB_API_KEY=${{ secrets.TMDB_API_KEY }}/g' server/.env
-          cd server && npm install
 
       - name: Zip artifact for deployment
-        run: cd server && zip ../release.zip ./* -r
+        run: cd server && zip ../release.zip . -r
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -53,6 +52,9 @@ jobs:
 
       - name: Unzip artifact for deployment
         run: unzip release.zip
+
+      - name: Run npm install
+        run: npm install
 
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
