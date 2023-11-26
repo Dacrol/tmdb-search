@@ -31,6 +31,12 @@ app.get('/api/*', (req, res) => {
     .catch(error => res.send(error));
 });
 
+app.use(express.static('dist'));
+
+app.get('*', (req, res) => {
+  res.sendFile('index.html', { root: 'dist' });
+});
+
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
