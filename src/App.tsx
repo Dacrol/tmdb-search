@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Search from './components/Search';
-import Movie from './components/MovieOrShow';
+import MovieOrShow from './components/MovieOrShow';
 import { MantineProvider } from '@mantine/core';
 
 import './App.css';
@@ -14,23 +14,26 @@ const MainHeader = styled.h1`
   color: #eaeaea;
   margin-top: 8px;
   cursor: pointer;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(66, 66, 66, 0.5);
 `;
-const StyledAppContainer = styled.div<{ backgroundImage: string }>`
+const StyledAppContainer = styled.div<{ background: string }>`
   background-image: ${props =>
-    props.backgroundImage
+    props.background
       ? `
     linear-gradient(
-      135deg,
-      rgba(34, 33, 34, 0.75),
-      rgba(0, 0, 0, 1)
-    ), url(${props.backgroundImage})
+      rgba(36, 34, 36, 0.85),
+      #151515
+    ), url(${props.background})
     `
       : 'none'};
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  width: 100%;
   height: 100%;
+  background-color: #151515;
+  background-size: cover;
+  background-position: top;
+  background-repeat: no-repeat;
+
+  width: 100%;
   margin: 0 auto;
   padding: 1rem 2rem 2rem 2rem;
   #main {
@@ -43,7 +46,7 @@ const AppContainer: React.FC<{
 }> = ({ children }) => {
   const { backgroundImage } = useContext(BackdropContext);
   return (
-    <StyledAppContainer backgroundImage={backgroundImage}>
+    <StyledAppContainer background={backgroundImage}>
       {children}
     </StyledAppContainer>
   );
@@ -65,8 +68,8 @@ function App() {
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Search />} />
-                <Route path="/movie/:id" element={<Movie />} />
-                <Route path="/show/:id" element={<Movie />} />
+                <Route path="/movie/:id" element={<MovieOrShow />} />
+                <Route path="/show/:id" element={<MovieOrShow />} />
               </Routes>
             </BrowserRouter>
           </main>

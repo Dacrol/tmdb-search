@@ -3,20 +3,25 @@ import { useLocation, useParams } from 'react-router-dom';
 import { MovieDetails } from '../types/MovieDetails';
 import { ShowDetails } from '../types/ShowDetails';
 import { BackdropContext } from '../contexts/BackdropContext';
+import Movie from './Movie';
 
 const getById = async (id: string, media_type: string) => {
-  const res = await fetch(`/api/${media_type}/${id}`);
+  const res = await fetch(
+    `/api/${media_type}/${id}?append_to_response=credits,reviews`
+  );
   const data = await res.json();
   return data;
 };
 
-const Movie: React.FC = () => {
+const MovieOrShow: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { setBackgroundImage } = useContext(BackdropContext);
   const location = useLocation();
   const media_type = location.pathname.includes('/movie/') ? 'movie' : 'tv';
 
   const [movieData, setMovieData] = useState<MovieDetails | null>(null);
+
+  // Show data is a future implementation maybe:
   const [, setShowData] = useState<ShowDetails | null>(null);
 
   useEffect(() => {
@@ -30,9 +35,13 @@ const Movie: React.FC = () => {
       } else {
         setShowData(detailsData);
       }
-      setBackgroundImage(
-        'https://image.tmdb.org/t/p/original' + detailsData.backdrop_path
-      );
+      if (detailsData.backdrop_path) {
+        setBackgroundImage(
+          'https://image.tmdb.org/t/p/original' + detailsData.backdrop_path
+        );
+      } else {
+        setBackgroundImage('');
+      }
     };
 
     fetchMovie();
@@ -44,14 +53,9 @@ const Movie: React.FC = () => {
   if (!id) {
     return <div>No movie ID provided</div>;
   }
-  return (
-    <div>
-      <div>
-        <h1>{movieData.title}</h1>
-      </div>
-      <p>{movieData.overview}</p>
-    </div>
-  );
+  if (movieData) {
+    return <Movie movieDetails={movieData} />;
+  }
 };
 
-export default Movie;
+export default MovieOrShow;

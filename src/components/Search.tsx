@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { BackdropContext } from '../contexts/BackdropContext';
 
-const StyledSearchResultCard = styled.div<{ backgroundImage: string }>`
+export const StyledSearchResultCard = styled.div<{ backgroundImage: string }>`
   background-image: linear-gradient(
       135deg,
       rgba(71, 64, 75, 0.5),

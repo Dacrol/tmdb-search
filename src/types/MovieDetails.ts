@@ -1,3 +1,54 @@
+type Review = {
+  author: string;
+  author_details: {
+    name: string;
+    username: string;
+    avatar_path: string | null;
+    rating: number | null;
+  };
+  content: string;
+  created_at: string;
+  id: string;
+  updated_at: string;
+  url: string;
+};
+
+type Reviews = {
+  page: number;
+  results: Review[];
+  total_pages: number;
+  total_results: number;
+};
+
+type CastMember = {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string | null;
+  cast_id: number;
+  character: string;
+  credit_id: string;
+  order: number;
+};
+
+type CrewMember = {
+  adult: boolean;
+  gender: number;
+  id: number;
+  known_for_department: string;
+  name: string;
+  original_name: string;
+  popularity: number;
+  profile_path: string | null;
+  credit_id: string;
+  department: string;
+  job: string;
+};
+
 type ProductionCompany = {
   id: number;
   logo_path: string | null;
@@ -27,6 +78,11 @@ export type MovieDetails = {
   belongs_to_collection: any;
   budget: number;
   genres: Genre[];
+  credits: {
+    cast: CastMember[];
+    crew: CrewMember[];
+  };
+  reviews: Reviews;
   homepage: string;
   id: number;
   imdb_id: string;
