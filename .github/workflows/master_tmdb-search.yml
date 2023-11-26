@@ -27,6 +27,7 @@ jobs:
           npm run build
           cp -a dist server/
           sed -i 's/TMDB_API_KEY=/TMDB_API_KEY=${{ secrets.TMDB_API_KEY }}/g' server/.env
+          cd server && npm install && npm run build && cd ..
 
       - name: Zip artifact for deployment
         run: cd server && zip ../release.zip . -r
