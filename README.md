@@ -1,30 +1,66 @@
-# React + TypeScript + Vite
+# TMDB Search
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple web application for searching movies, TV shows and persons using the [TMDB API](https://www.themoviedb.org/documentation/api).
 
-Currently, two official plugins are available:
+## Prerequisites
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Before you begin, ensure you have met the following requirements:
 
-## Expanding the ESLint configuration
+- You have installed the latest version of [Node.js and npm](https://nodejs.org/en/download/)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Running
 
-- Configure the top-level `parserOptions` property like this:
+To run the development server, follow these steps:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+1. Install the dependencies and run the development server:
+
+```bash
+npm install
+npm run start
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. Add your [TMDB API key](https://developer.themoviedb.org/reference/intro/getting-started) to `server/.env`
+
+3. Concurrently run the proxy server for the API:
+
+```bash
+cd server
+npm install
+npm run start
+```
+
+The web application will start running on [http://localhost:3000](http://localhost:3000) and the server on [http://localhost:3001](http://localhost:3001).
+
+## Building
+
+To build the project, run the following command:
+
+```bash
+npm run build
+```
+
+The built files will be in the `dist` directory.
+
+## Testing
+
+This project uses Playwright for end-to-end testing.
+
+Ensure Playwright and its necessary dependencies have been set up with:
+
+```bash
+npm run test:install-deps
+```
+
+To run the tests, use the following command:
+
+```bash
+npm run test:e2e
+```
+
+## Linting
+
+To lint the project, use the following command:
+
+```bash
+npm run lint
+```
