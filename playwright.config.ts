@@ -36,7 +36,8 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'npm run start',
+    command:
+      'npm run build && cp -a dist server/ && cd server && npm install && PORT=3000 npm start',
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
   },
