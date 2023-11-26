@@ -12,11 +12,15 @@ const MainHeader = styled.h1`
   color: #eaeaea;
   margin-top: 8px;
 `;
+const AppContainer = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+`;
 
 function App() {
   return (
     <MantineProvider defaultColorScheme="dark">
-      <div>
+      <AppContainer>
         <MainHeader>TMDB Search</MainHeader>
         <BrowserRouter>
           <Routes>
@@ -24,7 +28,7 @@ function App() {
             <Route path="/movie/:id" element={<Movie />} />
           </Routes>
         </BrowserRouter>
-      </div>
+      </AppContainer>
     </MantineProvider>
   );
 }
