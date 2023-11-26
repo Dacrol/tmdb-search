@@ -1,4 +1,4 @@
-import { Grid, Input } from '@mantine/core';
+import { Grid, Input, Tooltip } from '@mantine/core';
 import { useContext, useEffect, useState } from 'react';
 import { SearchResult } from '../types/SearchResults';
 import styled from 'styled-components';
@@ -23,10 +23,12 @@ export const StyledSearchResultCard = styled.div<{ backgroundImage: string }>`
   border: 1px solid rgba(66, 66, 66, 1);
   box-sizing: border-box;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  &:hover {
-    cursor: pointer;
-    transform: scale(1.05);
-    transition: transform 0.2s;
+  &:not(.no-click) {
+    &:hover {
+      cursor: pointer;
+      transform: scale(1.05);
+      transition: transform 0.2s;
+    }
   }
   span {
     font-size: 1.5em;
@@ -40,11 +42,12 @@ export const StyledSearchResultCard = styled.div<{ backgroundImage: string }>`
 const colSpanConfig = { base: 12, xs: 6, sm: 4, lg: 3 };
 
 const SearchResultCard: React.FC<{
+  className?: string;
   backdropUrl: string | null;
   children: React.ReactNode;
   id: number;
   media_type: string;
-}> = ({ backdropUrl, children, id, media_type }) => {
+}> = ({ backdropUrl, children, id, media_type, className }) => {
   const navigate = useNavigate();
   const { setBackgroundImage } = useContext(BackdropContext);
   useEffect(() => {
@@ -55,12 +58,12 @@ const SearchResultCard: React.FC<{
     : 'none';
   return (
     <StyledSearchResultCard
-      className="result-card"
+      className={`result-card${className ? ` ${className}` : ''}`}
       backgroundImage={backgroundImage}
       onClick={() => {
         if (media_type === 'person') {
           navigate(`/person/${id}`);
-        } else {
+        } else if (media_type === 'movie') {
           navigate(`/movie/${id}`);
         }
       }}
@@ -166,15 +169,22 @@ function Search() {
                   );
                 } else {
                   return (
-                    <Grid.Col span={colSpanConfig} key={result.id}>
-                      <SearchResultCard
-                        id={result.id}
-                        media_type={result.media_type}
-                        backdropUrl={result.backdrop_path}
-                      >
-                        <span>{result.name}</span>
-                      </SearchResultCard>
-                    </Grid.Col>
+                    <Tooltip
+                      label={'Details for TV Series are not yet implemented'}
+                      position="top"
+                      withArrow
+                    >
+                      <Grid.Col span={colSpanConfig} key={result.id}>
+                        <SearchResultCard
+                          className="no-click"
+                          id={result.id}
+                          media_type={result.media_type}
+                          backdropUrl={result.backdrop_path}
+                        >
+                          <span>{result.name}</span>
+                        </SearchResultCard>
+                      </Grid.Col>
+                    </Tooltip>
                   );
                 }
               })}
