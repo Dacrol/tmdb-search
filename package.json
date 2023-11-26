@@ -8,7 +8,9 @@
     "dev": "npm run start",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:e2e": "playwright test",
+    "test:install-deps": "playwright install --with-deps"
   },
   "dependencies": {
     "@mantine/core": "^7.2.2",
@@ -19,6 +21,7 @@
     "styled-components": "^6.1.1"
   },
   "devDependencies": {
+    "@playwright/test": "^1.40.0",
     "@types/express": "^4.17.21",
     "@types/node": "^20.10.0",
     "@types/react": "^18.2.37",
