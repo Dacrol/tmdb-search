@@ -155,7 +155,9 @@ function Search() {
                           <SearchResultCard
                             id={result.id}
                             media_type={result.media_type}
-                            backdropUrl={result.backdrop_path}
+                            backdropUrl={
+                              result.backdrop_path || result.profile_path
+                            }
                           >
                             <span>{result.name}</span>
                           </SearchResultCard>
@@ -167,7 +169,9 @@ function Search() {
                           <SearchResultCard
                             id={result.id}
                             media_type={result.media_type}
-                            backdropUrl={result.backdrop_path}
+                            backdropUrl={
+                              result.backdrop_path || result.poster_path
+                            }
                           >
                             <span>{result.title}</span>
                           </SearchResultCard>
@@ -187,7 +191,9 @@ function Search() {
                               className="no-click"
                               id={result.id}
                               media_type={result.media_type}
-                              backdropUrl={result.backdrop_path}
+                              backdropUrl={
+                                result.backdrop_path || result.poster_path
+                              }
                             >
                               <span>{result.name}</span>
                             </SearchResultCard>

@@ -72,7 +72,7 @@ const Person: React.FC = () => {
             md: 6,
           }}
         >
-          <h1>{personData.name}</h1>
+          <h1 id="person-name">{personData.name}</h1>
           <div className="info">
             <p>
               <span className="bold">Birthday:</span> {personData.birthday}

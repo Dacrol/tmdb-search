@@ -63,6 +63,9 @@ const MovieContainer = styled.div`
 export const SubScrollContainer = styled.div`
   max-height: 610px;
   width: 85%;
+  @media (max-width: 768px) {
+    width: 90%;
+  }
   overflow-y: scroll;
   .pre-wrap {
     white-space: pre-wrap;
@@ -82,7 +85,7 @@ const Movie: React.FC<{
             md: 6,
           }}
         >
-          <h1>{movieDetails.title}</h1>
+          <h1 id="movie-title">{movieDetails.title}</h1>
           <div className="info">
             <p>Year: {movieDetails.release_date.split('-')[0]}</p>
             <p className="genres">
