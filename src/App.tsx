@@ -1,11 +1,14 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './App.css';
 import Search from './components/Search';
 import Movie from './components/Movie';
+import { MantineProvider } from '@mantine/core';
+
+import './App.css';
+import '@mantine/core/styles.css';
 
 function App() {
   return (
-    <>
+    <MantineProvider defaultColorScheme="dark">
       <div>
         <h1>TMDB Search</h1>
         <BrowserRouter>
@@ -15,7 +18,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </div>
-    </>
+    </MantineProvider>
   );
 }
 

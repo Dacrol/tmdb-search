@@ -1,3 +1,4 @@
+import { Input } from '@mantine/core';
 import { useEffect, useState } from 'react';
 
 function Search() {
@@ -52,7 +53,7 @@ function Search() {
   return (
     <>
       <div>
-        <input
+        <Input
           type="text"
           placeholder="Search"
           value={searchTerm}
