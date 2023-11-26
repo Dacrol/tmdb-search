@@ -26,9 +26,13 @@ function Search() {
       fetch(`/api/search/movie?query=${debouncedSearchTerm}`, { signal })
         .then(res => res.json())
         .then(data => {
-          setSearchResults(data);
+          const results = data.results;
+          console.log(results);
+          if (!results) {
+            return;
+          }
+          setSearchResults(results);
           setLoading(false);
-          console.log(data);
         })
         .catch(error => {
           if (error.name === 'AbortError') {

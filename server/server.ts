@@ -2,10 +2,9 @@
 
 import express from 'express';
 import axios from 'axios';
+import dotenv from 'dotenv';
 
-require('dotenv').config({
-  path: './.env',
-});
+dotenv.config();
 
 const app = express();
 
@@ -27,7 +26,7 @@ app.get('/api/*', (req, res) => {
       },
     })
     .then(data => {
-      res.send(data.data.results);
+      res.send(data.data);
     })
     .catch(error => res.send(error));
 });
