@@ -5,12 +5,19 @@ import { MantineProvider } from '@mantine/core';
 
 import './App.css';
 import '@mantine/core/styles.css';
+import styled from 'styled-components';
+
+const MainHeader = styled.h1`
+  text-align: left;
+  color: #eaeaea;
+  margin-top: 8px;
+`;
 
 function App() {
   return (
     <MantineProvider defaultColorScheme="dark">
       <div>
-        <h1>TMDB Search</h1>
+        <MainHeader>TMDB Search</MainHeader>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Search />} />

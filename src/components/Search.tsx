@@ -1,9 +1,59 @@
-import { Input } from '@mantine/core';
+import { Grid, Input } from '@mantine/core';
 import { useEffect, useState } from 'react';
+import { SearchResult } from '../types/SearchResults';
+import styled from 'styled-components';
+
+const StyledSearchResultCard = styled.div<{ backgroundImage: string }>`
+  background-image: linear-gradient(
+      135deg,
+      rgba(71, 64, 75, 0.5),
+      rgba(0, 0, 0, 1)
+    ),
+    ${props => props.backgroundImage};
+  background-size: cover;
+  background-position: center;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border-radius: 4px;
+  border: 1px solid rgba(66, 66, 66, 1);
+  box-sizing: border-box;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: transform 0.2s;
+  }
+  span {
+    font-size: 1.5em;
+    color: #eaeaea;
+    @media (max-width: 768px) {
+      font-size: 1.25em;
+    }
+  }
+`;
+
+const colSpanConfig = { base: 12, xs: 6, sm: 4, lg: 3 };
+
+const SearchResultCard: React.FC<{
+  backdropUrl: string | null;
+  children: React.ReactNode;
+}> = ({ backdropUrl, children }) => {
+  const backgroundImage = backdropUrl
+    ? `url(https://image.tmdb.org/t/p/w500${backdropUrl})`
+    : 'none';
+  return (
+    <StyledSearchResultCard backgroundImage={backgroundImage}>
+      {children}
+    </StyledSearchResultCard>
+  );
+};
 
 function Search() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -24,7 +74,7 @@ function Search() {
     if (debouncedSearchTerm) {
       setLoading(true);
 
-      fetch(`/api/search/movie?query=${debouncedSearchTerm}`, { signal })
+      fetch(`/api/search/multi?query=${debouncedSearchTerm}`, { signal })
         .then(res => res.json())
         .then(data => {
           const results = data.results;
@@ -60,12 +110,52 @@ function Search() {
           onChange={event => {
             setSearchTerm(event.target.value);
           }}
+          mb={'24px'}
+          ml={'24px'}
+          mr={'24px'}
         />
         {loading ? (
           <div>Loading...</div>
         ) : (
           <div>
-            <pre>{JSON.stringify(searchResults, null, 2)}</pre>
+            <Grid>
+              {searchResults.map(result => {
+                if (result.media_type === 'person') {
+                  return (
+                    <Grid.Col span={colSpanConfig}>
+                      <SearchResultCard
+                        key={result.id}
+                        backdropUrl={result.backdrop_path}
+                      >
+                        <span>{result.name}</span>
+                      </SearchResultCard>
+                    </Grid.Col>
+                  );
+                } else if (result.media_type === 'movie') {
+                  return (
+                    <Grid.Col span={colSpanConfig}>
+                      <SearchResultCard
+                        key={result.id}
+                        backdropUrl={result.backdrop_path}
+                      >
+                        <span>{result.title}</span>
+                      </SearchResultCard>
+                    </Grid.Col>
+                  );
+                } else {
+                  return (
+                    <Grid.Col span={colSpanConfig}>
+                      <SearchResultCard
+                        key={result.id}
+                        backdropUrl={result.backdrop_path}
+                      >
+                        <span>{result.name}</span>
+                      </SearchResultCard>
+                    </Grid.Col>
+                  );
+                }
+              })}
+            </Grid>
           </div>
         )}
       </div>
