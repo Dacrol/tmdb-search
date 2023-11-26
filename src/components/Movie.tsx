@@ -64,9 +64,8 @@ const MovieContainer = styled.div`
 
 const SubScrollContainer = styled.div`
   max-height: 610px;
-  width: 100%;
+  width: 85%;
   overflow-y: scroll;
-  margin-bottom: 20px;
 `;
 
 const Movie: React.FC<{
