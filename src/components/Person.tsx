@@ -123,7 +123,7 @@ const Person: React.FC = () => {
                   key={movie.id}
                 >
                   <StyledSearchResultCard
-                    backgroundImage={
+                    background={
                       movie.poster_path
                         ? `url(https://image.tmdb.org/t/p/w500${movie.poster_path})`
                         : 'none'

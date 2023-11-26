@@ -5,13 +5,13 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { BackdropContext } from '../contexts/BackdropContext';
 
-export const StyledSearchResultCard = styled.div<{ backgroundImage: string }>`
+export const StyledSearchResultCard = styled.div<{ background: string }>`
   background-image: linear-gradient(
       135deg,
       rgba(71, 64, 75, 0.5),
       rgba(0, 0, 0, 1)
     ),
-    ${props => props.backgroundImage};
+    ${props => props.background};
   background-size: cover;
   background-position: center;
   height: 300px;
@@ -59,7 +59,7 @@ const SearchResultCard: React.FC<{
   return (
     <StyledSearchResultCard
       className={`result-card${className ? ` ${className}` : ''}`}
-      backgroundImage={backgroundImage}
+      background={backgroundImage}
       onClick={() => {
         if (media_type === 'person') {
           navigate(`/person/${id}`);
@@ -185,6 +185,7 @@ function Search() {
                           }
                           position="top"
                           withArrow
+                          key={result.id}
                         >
                           <Grid.Col span={colSpanConfig} key={result.id}>
                             <SearchResultCard

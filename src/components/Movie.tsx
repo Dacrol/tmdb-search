@@ -130,7 +130,7 @@ const Movie: React.FC<{
               key={castMember.id}
             >
               <StyledSearchResultCard
-                backgroundImage={
+                background={
                   castMember.profile_path
                     ? `url(https://image.tmdb.org/t/p/w500${castMember.profile_path})`
                     : 'none'
