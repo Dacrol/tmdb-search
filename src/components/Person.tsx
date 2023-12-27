@@ -1,29 +1,13 @@
 import { Grid } from '@mantine/core';
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import styled from 'styled-components';
 import { PersonDetails } from '../types/PersonDetails';
 import { BackdropContext } from '../contexts/BackdropContext';
-import { SubScrollContainer } from './Movie';
-import { StyledSearchResultCard } from './Search';
-
-const PersonContainer = styled.div`
-  padding-bottom: 72px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  .profile {
-    max-height: 500px;
-    max-width: 350px;
-    border-radius: 4px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  }
-  .info p {
-    font-size: 1.1em;
-    font-weight: 600;
-    color: #eaeaea;
-  }
-`;
+import {
+  PersonContainer,
+  StyledSearchResultCard,
+  SubScrollContainer,
+} from './styled/components';
 
 const getPerson = async (id: string) => {
   const res = await fetch(`/api/person/${id}?append_to_response=movie_credits`);

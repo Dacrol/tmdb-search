@@ -1,76 +1,13 @@
 import React from 'react';
 import { MovieDetails } from '../types/MovieDetails';
 import { Card, Grid } from '@mantine/core';
-import styled from 'styled-components';
-import { StyledSearchResultCard } from './Search';
 import { useNavigate } from 'react-router-dom';
-
-const ReviewContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  span {
-    font-size: 0.9em;
-    color: #eaeaea;
-    &.review-author {
-      font-weight: 600;
-      margin-right: 8px;
-    }
-    &.review-score {
-      font-weight: 400;
-    }
-  }
-`;
-
-const MovieContainer = styled.div`
-  padding-bottom: 72px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  .poster {
-    max-height: 500px;
-    max-width: 350px;
-    border-radius: 4px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-  }
-  .info p {
-    font-size: 1.1em;
-    font-weight: 600;
-    color: #eaeaea;
-    &.genres span {
-      &:first-child {
-        margin-left: 8px;
-      }
-      border-radius: 4px;
-      border: 1px solid rgb(82, 82, 82);
-      margin: 0 2px;
-      padding: 0 2px;
-      padding-right: 6px;
-      font-size: 0.85em;
-      box-sizing: border-box;
-    }
-    .score {
-      font-weight: 700;
-    }
-    .votes {
-      font-size: 0.85em;
-      font-weight: 400;
-    }
-  }
-`;
-
-export const SubScrollContainer = styled.div`
-  max-height: 610px;
-  width: 85%;
-  @media (max-width: 768px) {
-    width: 90%;
-  }
-  overflow-y: scroll;
-  .pre-wrap {
-    white-space: pre-wrap;
-  }
-`;
+import {
+  MovieContainer,
+  ReviewContainer,
+  StyledSearchResultCard,
+  SubScrollContainer,
+} from './styled/components';
 
 const Movie: React.FC<{
   movieDetails: MovieDetails;
